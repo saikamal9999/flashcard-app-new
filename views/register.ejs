@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Cybersecurity Flashcard Game</h1>
+    </header>
+    <div class="form-container">
+       <h2>Register</h2>
+       <% if (message) { %>
+         <p class="error"><%= message %></p>
+       <% } %>
+       <form method="POST" action="/register">
+           <label for="username">Username:</label>
+           <input type="text" name="username" required>
+           <label for="password">Password:</label>
+           <input type="password" name="password" required>
+           <button type="submit">Register</button>
+       </form>
+       <p>Already have an account? <a href="/login">Login here</a></p>
+    </div>
+</body>
+</html>

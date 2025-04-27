@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cybersecurity Flashcard Game</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Cybersecurity Flashcard Game</h1>
+        <nav>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+    <div class="game-container">
+       <div id="flashcard">
+          <p id="question"></p>
+          <p id="answer" class="hidden"></p>
+       </div>
+       <button id="toggleAnswer">Show Answer</button>
+       <button id="nextCard">Next Card</button>
+    </div>
+    <script>
+        // Pass the flashcards array from the server into the script
+        const flashcards = <%- JSON.stringify(flashcards) %>;
+        let currentCard = 0;
+        const questionElem = document.getElementById('question');
+        const answerElem = document.getElementById('answer');
+        const toggleAnswerBtn = document.getElementById('toggleAnswer');
+        const nextCardBtn = document.getElementById('nextCard');
+
+        function showCard(index) {
+            questionElem.innerText = flashcards[index].question;
+            answerElem.innerText = flashcards[index].answer;
+            answerElem.classList.add('hidden');
+            toggleAnswerBtn.innerText = 'Show Answer';
+        }
+
+        toggleAnswerBtn.addEventListener('click', () => {
+            if(answerElem.classList.contains('hidden')) {
+                answerElem.classList.remove('hidden');
+                toggleAnswerBtn.innerText = 'Hide Answer';
+            } else {
+                answerElem.classList.add('hidden');
+                toggleAnswerBtn.innerText = 'Show Answer';
+            }
+        });
+
+        nextCardBtn.addEventListener('click', () => {
+            currentCard = (currentCard + 1) % flashcards.length;
+            showCard(currentCard);
+        });
+
+        // Initialize the first flashcard
+        showCard(currentCard);
+    </script>
+</body>
+</html>
